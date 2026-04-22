@@ -31,7 +31,7 @@ function renderCards() {
         <div class="menu-card">
           <img src="${item.img}" alt="${item.name}"/>
           <h3>${item.name}</h3>
-          <button class="orderB">Order Now</button>
+          <a href = "order.html" class="orderB">Order Now</a>
         </div>`;
   });
 }
@@ -168,3 +168,20 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 // Load default category
+
+
+//cart script
+const cartBtn = document.getElementById("cartBtn");
+const cartPanel = document.getElementById("cartPanel");
+const overlay = document.getElementById("cartOverlay");
+
+cartBtn.onclick = () => {
+  cartPanel.classList.add("active");
+  overlay.classList.add("active");
+  
+};
+
+overlay.onclick = () => {
+  cartPanel.classList.remove("active");
+  overlay.classList.remove("active");
+};  

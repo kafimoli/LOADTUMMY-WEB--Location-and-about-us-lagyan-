@@ -73,7 +73,7 @@ nav a:hover {
   cursor: pointer;
   text-decoration:none;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  
+  margin-left: 10px;
 }
 
 
@@ -718,5 +718,38 @@ nav a:hover {
 }
 .titleBar .title{
   margin-top:0px;
+}
+
+/*Cart Overlay*/
+.cart-panel{
+  position:fixed;
+  top: 0;
+  right: -35%; /*hidden*/
+  width: 35%;
+  height: 100%;
+  background: #fdf8d7;
+  box-shadow: -5px 0px 15px rgba(rgba(0,0,0,0.2));
+  transition: 0.3s ease;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.cart-panel.active{
+  right: 0; /*slides in*/
+}
+
+.cart-overlay{
+  position:fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: none;
+  z-index: 999;
+}
+
+.cart-overlay.active{
+  display: block;
 }
 
