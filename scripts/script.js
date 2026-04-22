@@ -168,3 +168,20 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 // Load default category
+
+
+//cart script
+const cartBtn = document.getElementById("cartBtn");
+const cartPanel = document.getElementById("cartPanel");
+const overlay = document.getElementById("cartOverlay");
+
+cartBtn.onclick = () => {
+  cartPanel.classList.add("active");
+  overlay.classList.add("active");
+  
+};
+
+overlay.onclick = () => {
+  cartPanel.classList.remove("active");
+  overlay.classList.remove("active");
+};  
