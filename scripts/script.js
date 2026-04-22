@@ -1,7 +1,7 @@
 const menuItems = [
   { name: "Savory Steak & Potato", img: "images/fm1.jpg" },
   { name: "Fresh Beef & Avocado Salad", img: "images/fm2.jpg" },
-  { name: "Spicy Dumpling Ramen", img: "images/fm3.jpg" },
+  { name: "Spicy Dumpling Ramen", img: "images/fm3.JPG" },
   { name: "Smokey Bacon Melt", img: "images/b1.JPG" },
   { name: "Classic Bacon Cheeseburger", img: "images/b2.JPG" },
   { name: "Crispy Chicken Sandwich", img: "images/b3.JPG" },
@@ -13,7 +13,7 @@ const menuItems = [
   { name: "Creamy Chocolate Muffins", img: "images/s3.JPG" },
   { name: "Chilled Coffee Latte", img: "images/d1.jpg" },
   { name: "Fresh Sparkling Lemonade", img: "images/d2.jpg" },
-  { name: "Creammy Smoothies", img: "images/d3.JPG" },
+  { name: "Creammy Smoothies", img: "images/d3.jpg" },
 ];
 
 // Shuffle randomly on every refresh
