@@ -52,30 +52,30 @@ document.addEventListener("DOMContentLoaded", function () {
 //menu page
 const menuData = {
   "Full Meal": [
-    { name: "Savory Steak & Potato Power", img: "images/fm1.jpg" },
-    { name: "Fresh Beef & Avocado Salad", img: "images/fm2.jpg" },
-    { name: "Spicy Dumpling Ramen", img: "images/fm3.JPG" }
+    { name: "Savory Steak & Potato Power", img: "images/fm1.jpg", price: "99"},
+    { name: "Fresh Beef & Avocado Salad", img: "images/fm2.jpg", price: "99" },
+    { name: "Spicy Dumpling Ramen", img: "images/fm3.JPG", price: "99"}
 
   ],
   "Burgers": [
-    { name: "Smokey Bacon Melt", img: "images/b1.JPG" },
-    { name: "Classic Bacon Cheeseburger", img: "images/b2.JPG" },
-    { name: "Crispy Chicken Sandwich", img: "images/b3.JPG" }
+    { name: "Smokey Bacon Melt", img: "images/b1.JPG", price: "99" },
+    { name: "Classic Bacon Cheeseburger", img: "images/b2.JPG", price: "99" },
+    { name: "Crispy Chicken Sandwich", img: "images/b3.JPG", price: "99" }
   ],
   "Tacos": [
-    { name: "Classic Ground Beef", img: "images/t1.JPG" },
-    { name: "Shredded Chicken", img: "images/t2.jpg" },
-    { name: "Veggie & Black Bean", img: "images/t3.jpg" }
+    { name: "Classic Ground Beef", img: "images/t1.JPG", price: "99" },
+    { name: "Shredded Chicken", img: "images/t2.jpg", price: "99" },
+    { name: "Veggie & Black Bean", img: "images/t3.jpg", price: "99" }
   ],
   "Sweets": [
-    { name: "Chocolate Chip Cookies", img: "images/s1.JPG" },
-    { name: "Fudgy Chocolate Brownies", img: "images/s2.JPG" },
-    { name: "Creamy Chocolate Muffins", img: "images/s3.JPG" }
+    { name: "Chocolate Chip Cookies", img: "images/s1.JPG", price: "99" },
+    { name: "Fudgy Chocolate Brownies", img: "images/s2.JPG", price: "99" },
+    { name: "Creamy Chocolate Muffins", img: "images/s3.JPG", price: "99" }
   ],
   "Drinks": [
-    { name: "Chilled Coffee Lattes", img: "images/d1.jpg" },
-    { name: "Fresh Lemonade Sparklers", img: "images/d2.jpg" },
-    { name: "Creamy Smoothies", img: "images/d3.jpg" }
+    { name: "Chilled Coffee Lattes", img: "images/d1.jpg", price: "99" },
+    { name: "Fresh Lemonade Sparklers", img: "images/d2.jpg", price: "99" },
+    { name: "Creamy Smoothies", img: "images/d3.jpg", price: "99" }
   ]
 };
 
@@ -127,7 +127,7 @@ function renderMenuCards() {
           <h3>${item.name}</h3>
           <h4>Starts at Php 99</h4>
           <div class="card-buttons">
-            <button class="view-btn" onclick="">Add to Cart</button>
+            <button class="view-btn" onclick="addToCart('${item.name}', '${item.img}', '${item.price}')">Add to Cart</button>
             <button class="order-btn-card">Order Now</button>
           </div>
         </div>
@@ -185,3 +185,77 @@ overlay.onclick = () => {
   cartPanel.classList.remove("active");
   overlay.classList.remove("active");
 };  
+
+let cart = [];
+
+function addToCart(name, img, price){
+  const existing = cart.find(item => item.name === name);
+  console.log("added");
+  if (existing){
+    existing.quantity++;
+  }else{
+    cart.push({name, img, price, quantity: 1});
+  }
+  renderCart();
+}
+//RENDER CART
+function renderCart(){
+  const cartItems = document.getElementById("cartItems");
+  cartItems.innerHTML = "";
+
+  cart.forEach((item, index) => {
+    cartItems.innerHTML += `
+      <div id="cartItemCard" class="cart-itemcard">
+        <img src="${item.img}" alt="${item.name}">
+        <div class="cart-details">
+          <h4>${item.name}</h4>
+
+          <div class="quantity-controls">
+            <button class="decrement-btn" data-index="${index}">-</button>
+            <p>${item.quantity}</p>
+            <button class="increment-btn" data-index="${index}">+</button>
+          </div>
+
+          <p id="amount" class="amount">Php ${item.price * item.quantity}</p>
+        </div>
+
+      </div>
+    `;
+  });
+
+  document.querySelectorAll(".increment-btn").forEach(btn => {
+    btn.onclick = () => {
+      const index = btn.dataset.index;
+      cart[index].quantity++;
+      renderCart();
+    };
+  });
+
+  document.querySelectorAll(".decrement-btn").forEach(btn => {
+    btn.onclick = () => {
+      const index  = btn.dataset.index;
+
+      if (cart[index].quantity > 1){
+        cart[index].quantity--;
+      }else{
+        cart.splice(index,  1);
+      }
+
+      renderCart();
+    }
+  })
+
+  let total = 0;
+
+  cart.forEach(item => {
+    total += item.price * item.quantity;
+  })
+
+  const totalPriceE1 = document.querySelector(".total-price");
+  totalPriceE1.textContent = `Total: Php ${total.toFixed(2)}`;
+}
+
+function clearCart(){
+  cart = [];
+  renderCart();
+}
